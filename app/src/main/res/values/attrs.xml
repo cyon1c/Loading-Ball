@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingBall">
+        <attr name="showTop" format="boolean" />
+        <attr name="showBottom" format="boolean" />
+        <attr name="topDrawable" format="reference"/>
+    </declare-styleable>
+</resources>

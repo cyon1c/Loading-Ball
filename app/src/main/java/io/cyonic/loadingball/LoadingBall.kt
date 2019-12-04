@@ -46,6 +46,12 @@ class LoadingBall @JvmOverloads constructor(context: Context, attrs: AttributeSe
         style = Paint.Style.FILL
     }
 
+    val paintShadow: Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        color = context.getColor(R.color.shadow)
+        style = Paint.Style.STROKE
+        strokeWidth = STROKE_WIDTH * 2
+    }
+
     val animator: ValueAnimator = ValueAnimator.ofInt(0, 3599).apply {
         repeatCount = ValueAnimator.INFINITE
         duration = 2000
@@ -63,6 +69,8 @@ class LoadingBall @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
         canvas?.apply {
 
+            drawCircle(width / 2f, height / 2f, outerRadius-10f, paintShadow)
+
             drawPath(topSweepPath, paintRed)
             drawPath(bottomSweepPath, paintWhite)
 
@@ -76,8 +84,8 @@ class LoadingBall @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private fun prepareForDraw(width: Int, height: Int) {
         val radius: Float = (if (width > height) height / 2f else width / 2f)
 
-        outerRadius = radius - 1f
-        innerRadius = outerRadius / 3.5f
+        outerRadius = radius - STROKE_WIDTH/2
+        innerRadius = radius / 3.5f
 
         wipersPath.moveTo(.5f, height / 2f)
         wipersPath.lineTo(width.toFloat() - 1f, height / 2f)
@@ -133,6 +141,6 @@ class LoadingBall @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     companion object {
-        const val STROKE_WIDTH: Float = 16f
+        const val STROKE_WIDTH: Float = 20f
     }
 }
